@@ -1,54 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <stdexcept>
+#include <bits/stdc++.h>
+using namespace std; 
 
-using namespace std;
-
-bool isDAG(int n, vector<vector<int>> &adjList) {
-    vector<int> inDegree(n, 0);
-    for (int i = 0; i < n; i++) {
-        for (int neighbor : adjList[i]) {
-            inDegree[neighbor]++;
+bool isdag(int n, vector<vector<int>> &adj){
+    vector <int> degree(n, 0);
+    for(int i=0; i<n; i++){
+        for(int nei:adj[i]){
+            degree[nei]++;
         }
     }
-
-    queue<int> q;
-    for (int i = 0; i < n; i++) {
-        if (inDegree[i] == 0) {
+    queue <int> q; 
+    for(int i=0; i<n; i++){
+        if(degree[i]==0){
             q.push(i);
         }
     }
-
-    int count = 0;
-    while (!q.empty()) {
-        int node = q.front();
-        q.pop();
-        count++;
-
-        for (int neighbor : adjList[node]) {
-            inDegree[neighbor]--;
-            if (inDegree[neighbor] == 0) {
-                q.push(neighbor);
+    int cnt=0; 
+    while(!q.empty()){
+        int nd = q.front();
+        q.pop(); 
+        cnt++;
+        
+        for(int nei:adj[nd]){
+            degree[nei]--;
+            if(degree[nei]==0){
+                q.push(nei);
             }
         }
     }
-
-    return count == n;
+    return n==cnt;
 }
 
-int main() {
-    int n = 6; 
-    vector<vector<int>> adjList = {
-        {1, 2}, 
-        {3},    
-        {3},    
-        {4, 5},
-        {},   
-        {} 
-    };
-
-    cout << "Is the graph a DAG? " << (isDAG(n, adjList) ? "Yes" : "No") << endl;
-
+int main(){
+    int n; cin>>n;
+    vector <vector<int>> adj = {{1,2}, {3}, {3}, {4, 5}, {}, {}};
+    cout<<isdag(n, adj);
     return 0;
 }

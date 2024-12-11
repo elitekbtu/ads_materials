@@ -1,45 +1,30 @@
-#include <iostream>
-#include <vector>
-#include <stack>
-
-using namespace std;
-
-void topologicalSortDFS(int node, vector<bool> &visited, stack<int> &order, vector<vector<int>> &adjList) {
-    visited[node] = true;
-    for (int neighbor : adjList[node]) {
-        if (!visited[neighbor]) {
-            topologicalSortDFS(neighbor, visited, order, adjList);
+#include <bits/stdc++.h>
+using namaspace std;
+void topsort(int nd, vector<bool> &visited, stack<int> &order, vector<vector<int>> &adj){
+    visited[nd] = true; 
+    for(int nei:adj[nd]){
+        if(!visited[nei]){
+            topsort(nei, visited, order, adj)
         }
     }
     order.push(node);
 }
 
-int main() {
-    int n = 6; 
-    vector<vector<int>> adjList = {
-        {1, 2},
-        {3},    
-        {3},    
-        {4, 5},
-        {},   
-        {}    
-    };
-
-    vector<bool> visited(n, false);
+int main(){
+    int n; cin>>n;
+    vector <vector<int>> adj = {{1,2}, {3}, {3}, {4, 5}, {}, {}};
     stack<int> order;
-
-    for (int i = 0; i < n; i++) {
-        if (!visited[i]) {
-            topologicalSortDFS(i, visited, order, adjList);
+    vector<bool> visited(n, false);
+    for(int i=0; i<n; i++){
+        if(!visited[i]){
+            topsort(i, visited, order, adj);
         }
     }
-
-    cout << "Topological Sort (DFS-based): ";
-    while (!order.empty()) {
-        cout << order.top() << " ";
+    cout<<"topsort"<<endl;
+    while(!order.empty()){
+        cout<<order.top()<<" ";
         order.pop();
     }
-    cout << endl;
-
+    cout<<endl;
     return 0;
 }

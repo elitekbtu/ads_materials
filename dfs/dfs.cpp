@@ -1,32 +1,19 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+using namespace std; 
 
-using namespace std;
-
-void dfs(int node, vector<bool> &visited, vector<vector<int>> &adjList) {
-    visited[node] = true;
-    cout << node << " ";
-    for (int neighbor : adjList[node]) {
-        if (!visited[neighbor]) {
-            dfs(neighbor, visited, adjList);
+void dfs(int nd, vector<bool> &visited, vector<vector<int>>& adj){
+    visited[nd] = true; 
+    cout<<nd<<" ";
+    for(int nei:adj[nd]){
+        if(!visited[nei]){
+            dfs(nei, visited, adj);
         }
     }
 }
-
-int main() {
-    int n = 6; 
-    vector<vector<int>> adjList = {
-        {1, 2},
-        {3},    
-        {3},   
-        {4, 5},
-        {},     
-        {}      
-    };
-
-    vector<bool> visited(n, false);
-    cout << "DFS Traversal: ";
-    dfs(0, visited, adjList);
-    cout << endl;
+int main(){
+    int n; cin>>n;
+    vector <vector<int>> adj = {{1,2}, {3}, {3}, {4, 5}, {}, {}};
+    vector <bool> vs(n, false);
+    dfs(0, visited, ad); 
     return 0;
 }
