@@ -1,45 +1,55 @@
 #include <bits/stdc++.h>
-using namespace std; 
+using namespace std;
 
-vector<int> topsortkahn(int n, vector<vector<int>> &adj){
-    vector <int> degree(n, 0);
-    for(int i=0; i<n; i++){
-        for(int nei:adj[i]){
-            degree[nei]++;
-        }
-    }
+#define V 5;
 
-    queue<int> q; 
-    for(int i=0; i<n; i++){
-        if(degree[i]==0){
-            q.push{i};
+int mink(int key[], bool, mstset[]){
+    int min=INF, minidx;
+    for(int i=0; i<V; i++){
+        if(!mstset[i] && key[v]< min){
+            min = key[v]; 
+            minidx = v;
         }
     }
-    vector <int> topord; 
-    while(!q.empty()){
-        int nd = q.front(); 
-        q.pop();
-        topord.push_back(nd);
-        for(int nei:adj[nd]){
-            degree[nei]--;
-        }
-        if(degree[nei]==0){
-            q.push(nei);
+    return minidx;
+}
+void printMST(int parent[], int graph[V][V]) {
+    for (int i = 1; i < V; i++)
+        cout << "Edge: " << parent[i] << " - " << i << " Weight: " << graph[i][parent[i]] << endl;
+}
+void primmst(int graph[V][V]){
+    int parent[V];
+    int key[V]; 
+    bool mstSet[V];
+    for(int i=0; i<V; i++){
+        key[i] = INT_MAX;
+        mstSet[i] = false;
+    }
+    key[0] = 0; 
+    parent[0] = -1; 
+    for(int cnt=0; cnt<v-1; cnt++){
+        int u = mink(key, mstSet)
+        mstSet[u] = true;
+
+        for(int v=0; i<V; v++){
+            if(graph[u][v] && !mstSet[v] && graph[u][v] < key[v]){
+                parent[v] = u; 
+                key[v] = graph[u][v];
+            }
         }
     }
-    if(topord.size()!=n){
-        cout<<"graph is not dag";
-        return NULL;
-    }
-    return topord;
+    printMST(parent, graph);
 }
 int main(){
-    int n; cin>>n;
-    vector <vector<int>> adj = {{1,2}, {3}, {3}, {4, 5}, {}, {}};
-    vector <int> topord = topsortkahn(n, adj);
-    for(int nd:topord){
-        cout<<nd<<" ";
-    }
-    cout<<endl;
+     int graph[V][V] = {
+        {0, 2, 0, 6, 0},
+        {2, 0, 3, 8, 5},
+        {0, 3, 0, 0, 7},
+        {6, 8, 0, 0, 9},
+        {0, 5, 7, 9, 0}
+    };
+
+    primMST(graph);
+
     return 0;
 }

@@ -1,52 +1,55 @@
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-typedef pair<int, int> Edge;
+#define V 5;
 
-int prim(int n, vector<vector<Edge>> &adjList) {
-    priority_queue<Edge, vector<Edge>, greater<>> pq;
-    vector<bool> inMST(n, false);
-    int mstWeight = 0;
+int mink(int key[], bool, mstset[]){
+    int min=INF, minidx;
+    for(int i=0; i<V; i++){
+        if(!mstset[i] && key[v]< min){
+            min = key[v]; 
+            minidx = v;
+        }
+    }
+    return minidx;
+}
+void printMST(int parent[], int graph[V][V]) {
+    for (int i = 1; i < V; i++)
+        cout << "Edge: " << parent[i] << " - " << i << " Weight: " << graph[i][parent[i]] << endl;
+}
+void primmst(int graph[V][V]){
+    int parent[V];
+    int key[V]; 
+    bool mstSet[V];
+    for(int i=0; i<V; i++){
+        key[i] = INT_MAX;
+        mstSet[i] = false;
+    }
+    key[0] = 0; 
+    parent[0] = -1; 
+    for(int cnt=0; cnt<v-1; cnt++){
+        int u = mink(key, mstSet)
+        mstSet[u] = true;
 
-    pq.push({0, 0}); 
-
-    while (!pq.empty()) {
-        int weight = pq.top().first;
-        int node = pq.top().second;
-        pq.pop();
-
-        if (inMST[node]) continue;
-
-        inMST[node] = true;
-        mstWeight += weight;
-
-        cout << "Node included in MST: " << node << " (Weight: " << weight << ")\n";
-
-        for (const auto &neighbor : adjList[node]) {
-            if (!inMST[neighbor.second]) {
-                pq.push(neighbor);
+        for(int v=0; i<V; v++){
+            if(graph[u][v] && !mstSet[v] && graph[u][v] < key[v]){
+                parent[v] = u; 
+                key[v] = graph[u][v];
             }
         }
     }
-
-    return mstWeight;
+    printMST(parent, graph);
 }
-
-int main() {
-    int n = 4;
-    vector<vector<Edge>> adjList = {
-        {{1, 10}, {2, 6}, {3, 5}},
-        {{0, 10}, {3, 15}},        
-        {{0, 6}, {3, 4}},          
-        {{0, 5}, {1, 15}, {2, 4}} 
+int main(){
+     int graph[V][V] = {
+        {0, 2, 0, 6, 0},
+        {2, 0, 3, 8, 5},
+        {0, 3, 0, 0, 7},
+        {6, 8, 0, 0, 9},
+        {0, 5, 7, 9, 0}
     };
 
-    int mstWeight = prim(n, adjList);
-    cout << "Total weight of MST: " << mstWeight << endl;
+    primMST(graph);
 
     return 0;
 }
