@@ -7,7 +7,7 @@ void topsort(int nd, vector<bool> &visited, stack<int> &order, vector<vector<int
             topsort(nei, visited, order, adj)
         }
     }
-    order.push(node);
+    order.push(nd);
 }
 
 int main(){
