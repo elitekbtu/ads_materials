@@ -30,7 +30,6 @@ This repository is a collection of algorithms and data structures implemented in
 ## Algorithms
 
 ### Sorting Algorithms
-- Bubble Sort
 - Merge Sort
 - Quick Sort
 - Heap Sort
@@ -60,7 +59,6 @@ This repository is a collection of algorithms and data structures implemented in
 - Stacks and Queues
 - Trees
   - Binary Search Tree
-  - AVL Tree
   - Heap
 - Graphs
   - Adjacency List
@@ -71,7 +69,7 @@ This repository is a collection of algorithms and data structures implemented in
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/elitekbtu/ads_materials.git
    ```
 
 2. Navigate to the desired folder to explore the implementation.
